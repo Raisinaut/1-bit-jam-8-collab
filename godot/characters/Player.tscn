@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cynt0mxgo2qeh"]
+
+[ext_resource type="Script" uid="uid://cnobsof5tvbwn" path="res://characters/player.gd" id="1_6newc"]
+[ext_resource type="Texture2D" uid="uid://c0dfsy36u6ue0" path="res://assets/entities/square.png" id="2_oo13o"]
+[ext_resource type="PackedScene" uid="uid://w74wet0d605x" path="res://objects/light_gun/gun/gun.tscn" id="3_mn00f"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_6newc")
+vulnerable = true
+health = 10
+grid_offset = Vector2(32, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_oo13o")
+
+[node name="Gun" parent="." instance=ExtResource("3_mn00f")]

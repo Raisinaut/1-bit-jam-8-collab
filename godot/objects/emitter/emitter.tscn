@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3fv2yqipy8d0"]
+
+[ext_resource type="Script" uid="uid://b2hnxp8tbnm2d" path="res://objects/emitter/emitter.gd" id="1_twoaq"]
+[ext_resource type="PackedScene" uid="uid://ds45wib4nu48" path="res://objects/projectile/projectile.tscn" id="2_a7vik"]
+
+[node name="Emitter" type="Node2D"]
+script = ExtResource("1_twoaq")
+emission_scene = ExtResource("2_a7vik")

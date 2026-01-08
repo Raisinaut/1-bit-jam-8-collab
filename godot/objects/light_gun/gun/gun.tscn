@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://w74wet0d605x"]
+
+[ext_resource type="Script" uid="uid://towd7ajox7x7" path="res://objects/light_gun/gun/gun.gd" id="1_gkr66"]
+[ext_resource type="PackedScene" uid="uid://d3fv2yqipy8d0" path="res://objects/emitter/emitter.tscn" id="1_qe4yh"]
+[ext_resource type="Texture2D" uid="uid://c0dfsy36u6ue0" path="res://assets/entities/square.png" id="3_l6jd2"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_gkr66")
+
+[node name="Reticle" type="Sprite2D" parent="."]
+position = Vector2(48, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_l6jd2")
+
+[node name="Emitter" parent="Reticle" instance=ExtResource("1_qe4yh")]
+unique_name_in_owner = true
+scale = Vector2(9.999999, 9.999999)

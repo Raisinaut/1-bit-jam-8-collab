@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn0v5esu1bae3"]
+
+[ext_resource type="Script" uid="uid://cabxqapvimph4" path="res://objects/wall/shaker.gd" id="1_jg56e"]
+
+[node name="Shaker" type="Node"]
+script = ExtResource("1_jg56e")
+
+[node name="FrequencyTimer" type="Timer" parent="."]
+
+[node name="DurationTimer" type="Timer" parent="."]

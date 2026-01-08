@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbk3p3q8hhi52"]
+
+[ext_resource type="Script" uid="uid://cva77hado20o5" path="res://camera/shaky_camera.gd" id="1_bh7bw"]
+[ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="2_l8hwo"]
+
+[node name="ShakyCamera" type="Camera2D"]
+script = ExtResource("1_bh7bw")
+pivot_amount = 0.1
+pivot_speed = 0.005
+
+[node name="Shaker" parent="." node_paths=PackedStringArray("shake_target") instance=ExtResource("2_l8hwo")]
+shake_target = NodePath("..")
