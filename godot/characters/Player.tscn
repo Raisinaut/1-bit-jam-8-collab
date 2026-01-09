@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cynt0mxgo2qeh"]
+[gd_scene load_steps=15 format=3 uid="uid://cynt0mxgo2qeh"]
 
 [ext_resource type="Script" uid="uid://cnobsof5tvbwn" path="res://characters/player.gd" id="1_6newc"]
-[ext_resource type="Texture2D" uid="uid://c0dfsy36u6ue0" path="res://assets/entities/square.png" id="2_oo13o"]
+[ext_resource type="Texture2D" uid="uid://ccre7wspv8vjw" path="res://assets/entities/circle.png" id="2_l3mkp"]
 [ext_resource type="PackedScene" uid="uid://w74wet0d605x" path="res://objects/light_gun/gun/gun.tscn" id="3_mn00f"]
 [ext_resource type="Script" uid="uid://71wsiadbo1el" path="res://components/combat/stats.gd" id="4_ypdjd"]
+[ext_resource type="Script" uid="uid://dsmsuyiho7hl8" path="res://components/general/AudioStreamPool.gd" id="5_8fq0x"]
+[ext_resource type="AudioStream" uid="uid://ro6odgnrp37i" path="res://assets/audio/Footsteps/step_normal-01.wav" id="6_l3mkp"]
+[ext_resource type="AudioStream" uid="uid://cg8imhteubt5u" path="res://assets/audio/Footsteps/step_normal-02.wav" id="7_mxfp2"]
+[ext_resource type="AudioStream" uid="uid://ddm12jg1y3spi" path="res://assets/audio/Footsteps/step_normal-03.wav" id="8_lbva7"]
+[ext_resource type="AudioStream" uid="uid://cqhp0ui7jql1v" path="res://assets/audio/Footsteps/step_normal-04.wav" id="9_a5vpp"]
+[ext_resource type="AudioStream" uid="uid://ho82s1fwla2t" path="res://assets/audio/Footsteps/step_normal-05.wav" id="10_3cxn8"]
+[ext_resource type="AudioStream" uid="uid://cwrcc7vm3bxwn" path="res://assets/audio/Footsteps/step_normal-06.wav" id="11_3l5v1"]
+[ext_resource type="AudioStream" uid="uid://dvacbi2vlom6y" path="res://assets/audio/Footsteps/step_normal-07.wav" id="12_p61vd"]
+[ext_resource type="AudioStream" uid="uid://cufwvcjcpc64b" path="res://assets/audio/Footsteps/step_normal-08.wav" id="13_ydpy1"]
+[ext_resource type="AudioStream" uid="uid://mgfvqob65lkn" path="res://assets/audio/Footsteps/step_normal-09.wav" id="14_xgxpv"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_6newc")
@@ -12,8 +22,8 @@ health = 10
 grid_offset = Vector2(32, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("2_oo13o")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l3mkp")
 
 [node name="Gun" parent="." instance=ExtResource("3_mn00f")]
 emission_count = 100
@@ -21,3 +31,12 @@ emission_count = 100
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("4_ypdjd")
 max_hp = 5
+
+[node name="Footsteps" type="Node2D" parent="."]
+script = ExtResource("5_8fq0x")
+audio_files = Array[AudioStream]([ExtResource("6_l3mkp"), ExtResource("7_mxfp2"), ExtResource("8_lbva7"), ExtResource("9_a5vpp"), ExtResource("10_3cxn8"), ExtResource("11_3l5v1"), ExtResource("12_p61vd"), ExtResource("13_ydpy1"), ExtResource("14_xgxpv")])
+pitch_variance = 0.05
+initial_volume_db = 0.0
+bus_name = "SFX"
+minimum_interval = 0.3
+metadata/_custom_type_script = "uid://dsmsuyiho7hl8"

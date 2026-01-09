@@ -2,20 +2,28 @@
 extends Node2D
 
 @onready var emitter = %Emitter
+@onready var fire_sfx = $FireSFX
 
 @export_range(0, 96) var reticle_distance : int = 48 : set = set_reticle_distance
-@export_range(0, 2*PI) var spread_angle : float = PI/2
+@export_range(0, 2*PI) var spread_angle : float = PI/4
 @export_range(1, 1000) var emission_count : int = 200
+@export_range(0.05, 0.5) var emission_cooldown : float = 0.2
+
+var cooldown_timer : SceneTreeTimer
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	
 	look_at(get_global_mouse_position())
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
 		fire()
 
 func fire() -> void:
+	if is_cooldown_active():
+		return
+	start_cooldown()
+	fire_sfx.play()
+	# Set up and emit projectile
 	var start_angle = -spread_angle / 2
 	var angle_interval = spread_angle / emission_count
 	for i in emission_count:
@@ -26,3 +34,9 @@ func set_reticle_distance(value : int) -> void:
 	if $Reticle != null:
 		reticle_distance = value
 		$Reticle.position.x = reticle_distance
+
+func start_cooldown() -> void:
+	cooldown_timer = get_tree().create_timer(emission_cooldown)
+
+func is_cooldown_active() -> bool:
+	return cooldown_timer and cooldown_timer.time_left

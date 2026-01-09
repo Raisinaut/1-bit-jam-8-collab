@@ -7,26 +7,28 @@ extends GridObject
 @onready var projectile_detection = $ProjectileDetection
 @onready var ghost_detection = $GhostDetection
 @onready var visibility_timer = $VisibilityTimer
+@onready var hum_sfx = $HumSFX
 
-var fade_time: float = 4.0 # seconds
+var fade_time: float = 3.0 # seconds
 
 func _ready() -> void:
 	visibility_timer.wait_time = fade_time
 	visibility_timer.one_shot = true
 	projectile_detection.area_entered.connect(_on_projectile_detection_area_entered)
 	sprite_fill.hide()
+	hum_sfx.play()
 
 func _process(_delta: float) -> void:
 	ghost_shake()
 	update_fade()
-
+	update_hum_volume()
 
 func _on_projectile_detection_area_entered(area : Area2D) -> void:
 	area.queue_free()
 	illuminate()
 
 func illuminate() -> void:
-	shaker.start(0.2)
+	shaker.start(0.1)
 	reset_visibility_timer()
 
 func reset_visibility_timer() -> void:
@@ -54,10 +56,15 @@ func get_ghost_proximity_value() -> float:
 	return clamp(proximity, 0, 1.0)
 
 func update_fade() -> void:
-	var ghost_fade_value = lerp(0.0, 0.4, get_ghost_proximity_value())
+	var ghost_fade_value = lerp(0.0, 0.5, get_ghost_proximity_value())
 	var fade_value = max(get_fade_progress_value(), ghost_fade_value)
 	sprite.scale = Vector2.ONE * lerp(0.0, 1.0, fade_value)
 	sprite.visible = fade_value > 0.0
 	# Expand inner black circle
 	#sprite_fill.scale = Vector2.ONE * lerp(1.0, 0.8, get_fade_progress_value())
 	#sprite_fill.offset = sprite.offset
+
+func update_hum_volume() -> void:
+	var ghost_fade_value = lerp(0.0, 0.5, get_ghost_proximity_value())
+	var fade_value = max(get_fade_progress_value(), ghost_fade_value)
+	hum_sfx.volume_db = lerp(-60.0, -8.0, fade_value)

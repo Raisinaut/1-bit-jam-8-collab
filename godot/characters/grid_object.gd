@@ -1,6 +1,9 @@
 class_name GridObject
 extends Node2D
 
+signal moved
+signal bonked
+
 @export var vulnerable := false
 @export var health := 0
 @export var contact_damage := 0
@@ -15,7 +18,7 @@ var move_tween : Tween
 var bonk_tween : Tween
 
 var move_timer : SceneTreeTimer = null
-var move_cooldown : float = 0.1 # seconds
+var move_cooldown : float = 0.2 # seconds
 
 func _init() -> void:
 	initialize_grid(GameManager.grid_node)
@@ -34,10 +37,11 @@ func attempt_move(direction: Vector2):
 	if !object:
 		grid_position += direction
 		move()
+		moved.emit()
 	else:
 		_bonk(direction)
 		move_direction = Vector2.ZERO
-	
+		bonked.emit()
 	start_move_cooldown()
 
 func move() -> void:

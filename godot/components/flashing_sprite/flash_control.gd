@@ -30,3 +30,5 @@ func set_active(state : bool) -> void:
 	active = state
 	if active:
 		time_since_flash = 0.0
+	else:
+		flash = false

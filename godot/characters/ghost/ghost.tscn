@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7atmjmpemtu5"]
+[gd_scene load_steps=11 format=3 uid="uid://b7atmjmpemtu5"]
 
 [ext_resource type="Script" uid="uid://duptta74coehq" path="res://characters/ghost/ghost.gd" id="1_lffqf"]
-[ext_resource type="PackedScene" uid="uid://ccsq1s0qojfcc" path="res://characters/ghost/explosion.tscn" id="3_c2k2i"]
 [ext_resource type="Shader" uid="uid://d1o1w3ggv3l1a" path="res://components/flashing_sprite/flash.gdshader" id="3_lgww0"]
 [ext_resource type="Script" uid="uid://ddox1ivtqcvwk" path="res://components/flashing_sprite/flash_control.gd" id="4_4ie3m"]
 [ext_resource type="Texture2D" uid="uid://bh7pwqxmpukis" path="res://assets/entities/ghost.png" id="4_lgww0"]
 [ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="6_a7n3o"]
+[ext_resource type="AudioStream" uid="uid://bu3065yd8phfg" path="res://assets/audio/static.wav" id="6_e6vcr"]
+[ext_resource type="AudioStream" uid="uid://brl5s8gii6lmv" path="res://assets/audio/stun_loop.wav" id="7_e6vcr"]
+[ext_resource type="Script" uid="uid://dpolc4g5evx2f" path="res://components/general/border_positioner.gd" id="8_13mqu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a7n3o"]
 shader = ExtResource("3_lgww0")
@@ -19,7 +21,6 @@ radius = 64.0
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_lffqf")
-death_effect = ExtResource("3_c2k2i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_a7n3o")
@@ -33,3 +34,20 @@ shape = SubResource("CircleShape2D_c2k2i")
 
 [node name="Shaker" parent="." node_paths=PackedStringArray("shake_target") instance=ExtResource("6_a7n3o")]
 shake_target = NodePath("../Sprite2D")
+
+[node name="BorderPositioner" type="Node2D" parent="."]
+script = ExtResource("8_13mqu")
+border_grow = 64
+
+[node name="StaticSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_e6vcr")
+volume_db = 2.0
+attenuation = 9.0
+panning_strength = 3.0
+bus = &"SFX"
+
+[node name="StunnedSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_e6vcr")
+volume_db = 4.0
+panning_strength = 2.0
+bus = &"SFX"

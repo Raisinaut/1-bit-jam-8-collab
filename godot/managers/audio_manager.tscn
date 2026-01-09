@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxanrcouc7pfl"]
+
+[ext_resource type="AudioStream" uid="uid://cwecrjqc3ku3t" path="res://assets/audio/ambience.wav" id="1_1k0gc"]
+[ext_resource type="Script" uid="uid://bxl5wrhi0ohhf" path="res://managers/audio_manager.gd" id="1_o384a"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_o384a")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_1k0gc")
+volume_db = -4.0
+bus = &"Ambience"
