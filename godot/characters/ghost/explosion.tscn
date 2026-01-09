@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccsq1s0qojfcc"]
+
+[ext_resource type="Script" uid="uid://b1nq5dqony6xh" path="res://characters/ghost/explosion.gd" id="1_3g0xy"]
+[ext_resource type="PackedScene" uid="uid://d3fv2yqipy8d0" path="res://objects/emitter/emitter.tscn" id="2_ipihb"]
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_3g0xy")
+
+[node name="Emitter" parent="." instance=ExtResource("2_ipihb")]

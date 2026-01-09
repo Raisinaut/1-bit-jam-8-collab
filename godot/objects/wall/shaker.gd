@@ -59,3 +59,6 @@ func _on_frequency_timeout():
 func _on_duration_timeout():
 	_reset()
 	frequency_timer.stop()
+
+func is_shaking() -> bool:
+	return frequency_timer.time_left > 0

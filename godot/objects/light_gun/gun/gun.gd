@@ -5,7 +5,7 @@ extends Node2D
 
 @export_range(0, 96) var reticle_distance : int = 48 : set = set_reticle_distance
 @export_range(0, 2*PI) var spread_angle : float = PI/2
-@export_range(1, 1000) var emission_count : int = 100
+@export_range(1, 1000) var emission_count : int = 200
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():

@@ -14,6 +14,9 @@ var move_direction = Vector2.ZERO
 var move_tween : Tween
 var bonk_tween : Tween
 
+var move_timer : SceneTreeTimer = null
+var move_cooldown : float = 0.1 # seconds
+
 func _init() -> void:
 	initialize_grid(GameManager.grid_node)
 
@@ -34,12 +37,14 @@ func attempt_move(direction: Vector2):
 	else:
 		_bonk(direction)
 		move_direction = Vector2.ZERO
+	
+	start_move_cooldown()
 
 func move() -> void:
 	if move_tween : move_tween.kill()
 	move_tween = create_tween()
-	move_tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-	move_tween.tween_property(self, "global_position", _actual_position(), 0.25)
+	move_tween.set_ease(Tween.EASE_OUT)#.set_trans(Tween.TRANS_SINE)
+	move_tween.tween_property(self, "global_position", _actual_position(), move_cooldown)
 
 func _actual_position():
 	return (grid_position * _grid.grid_step) + _grid.grid_origin + grid_offset
@@ -67,4 +72,7 @@ func grid_round(vec: Vector2):
 	return vec
 
 func is_moving() -> bool:
-	return move_tween and move_tween.is_running()
+	return move_timer and move_timer.time_left > 0
+
+func start_move_cooldown() -> void:
+	move_timer = get_tree().create_timer(move_cooldown)

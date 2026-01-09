@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkkgfo2kiy65l"]
+[gd_scene load_steps=7 format=3 uid="uid://bkkgfo2kiy65l"]
 
 [ext_resource type="Script" uid="uid://bgjckfhqf5hqx" path="res://objects/wall/wall.gd" id="1_mqi10"]
 [ext_resource type="Texture2D" uid="uid://c0dfsy36u6ue0" path="res://assets/entities/square.png" id="3_4pi7y"]
 [ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="3_722tm"]
+[ext_resource type="Script" uid="uid://2d7aq2wnyt7a" path="res://objects/wall/ghost_detection.gd" id="4_722tm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pi7y"]
 size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pi7y"]
+radius = 192.0
 
 [node name="Wall" type="Node2D"]
 script = ExtResource("1_mqi10")
@@ -21,11 +25,19 @@ texture = ExtResource("3_4pi7y")
 [node name="Shaker" parent="." node_paths=PackedStringArray("shake_target") instance=ExtResource("3_722tm")]
 shake_target = NodePath("../Sprite2D")
 
-[node name="Detection" type="Area2D" parent="."]
+[node name="ProjectileDetection" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetection"]
 shape = SubResource("RectangleShape2D_4pi7y")
+
+[node name="GhostDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_722tm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostDetection"]
+shape = SubResource("CircleShape2D_4pi7y")
 
 [node name="VisibilityTimer" type="Timer" parent="."]
