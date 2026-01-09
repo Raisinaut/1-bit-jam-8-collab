@@ -35,5 +35,7 @@ func get_random_border_position() -> Vector2:
 	var view_center_offset = get_resized_view_rect().size / 2
 	global_position = GameManager.camera.global_position - view_center_offset
 	var r = randf_range(0.0, 1.0)
+	if not border_follow.is_node_ready():
+		await border_follow.ready
 	border_follow.progress_ratio = r
 	return border_follow.global_position

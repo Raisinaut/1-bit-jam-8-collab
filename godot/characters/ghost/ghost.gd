@@ -55,6 +55,7 @@ func set_state(new_state : STATES) -> void:
 	print("Ghost state: ", STATES.find_key(state))
 	match(state):
 		STATES.CHASE:
+			teleport_to_view_edge()
 			hide()
 			static_sfx.play()
 			set_deferred("monitorable", true)
@@ -67,14 +68,17 @@ func set_state(new_state : STATES) -> void:
 			stun_timer.start(stun_duration)
 		STATES.RECOVER:
 			hide()
-			global_position = Vector2.ONE * 200000 # go faaaar away
+			teleport_far_away()
 			stunned_sfx.stop()
 			start_recovery_timer()
 		STATES.DESTROYED:
 			destroy()
 
+func teleport_far_away() -> void:
+	global_position = Vector2.ONE * 200000
+
 func teleport_to_view_edge() -> void:
-	global_position = border_positioner.get_random_border_position()
+	global_position = await border_positioner.get_random_border_position()
 
 func start_recovery_timer():
 	var recovery_time = randf_range(MIN_RECOVERY_TIME, MAX_RECOVERY_TIME)
@@ -93,5 +97,4 @@ func _on_stun_timer_timeout() -> void:
 		state = STATES.RECOVER
 
 func _on_recovery_timer_timeout() -> void:
-	teleport_to_view_edge()
 	state = STATES.CHASE
