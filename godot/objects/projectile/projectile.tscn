@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c0dfsy36u6ue0" path="res://assets/entities/square.png" id="2_5vqdy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d2sno"]
-radius = 16.0
+radius = 8.0
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 2
@@ -13,7 +13,7 @@ script = ExtResource("1_d2sno")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_5vqdy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

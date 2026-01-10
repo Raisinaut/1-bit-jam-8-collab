@@ -37,7 +37,7 @@ shake_target = NodePath("../Sprite2D")
 
 [node name="BorderPositioner" type="Node2D" parent="."]
 script = ExtResource("8_13mqu")
-border_grow = 64
+border_grow = 100
 
 [node name="StaticSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_e6vcr")
@@ -48,6 +48,6 @@ bus = &"SFX"
 
 [node name="StunnedSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_e6vcr")
-volume_db = 4.0
+volume_db = 2.0
 panning_strength = 2.0
 bus = &"SFX"

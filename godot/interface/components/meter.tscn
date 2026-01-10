@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccv5w0h37upnm"]
+
+[ext_resource type="Theme" uid="uid://cobdrghm7l5pu" path="res://interface/ui_theme.tres" id="1_dd620"]
+[ext_resource type="Script" uid="uid://destrw670aakc" path="res://interface/components/meter.gd" id="2_wipwi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wipwi"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Meter" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme = ExtResource("1_dd620")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wipwi")
+script = ExtResource("2_wipwi")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Border" type="ColorRect" parent="MarginContainer2"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer2/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 320)
+layout_mode = 2
+size_flags_vertical = 8
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctrk14oy5he4p"]
+
+[ext_resource type="PackedScene" uid="uid://ccv5w0h37upnm" path="res://interface/components/meter.tscn" id="1_cj6bh"]
+[ext_resource type="Script" uid="uid://d1aoett2igd7c" path="res://interface/hud/hud.gd" id="1_kni60"]
+[ext_resource type="Script" uid="uid://b6ekf6prfp2nu" path="res://components/visibility_flasher/visibility_flasher.gd" id="3_ngtag"]
+[ext_resource type="AudioStream" uid="uid://ljrlpoxac401" path="res://assets/audio/gun/ui_blink.wav" id="4_qleks"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_kni60")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="OverheatMeter" parent="MarginContainer" instance=ExtResource("1_cj6bh")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="VisibilityFlasher" type="Node" parent="." node_paths=PackedStringArray("linked_node")]
+script = ExtResource("3_ngtag")
+flash_interval = 0.1
+linked_node = NodePath("../MarginContainer/OverheatMeter/MarginContainer2/Border")
+affect_self_modulate = true
+metadata/_custom_type_script = "uid://b6ekf6prfp2nu"
+
+[node name="FlashSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qleks")
+volume_db = -6.0
+bus = &"SFX"
+
+[editable path="MarginContainer/OverheatMeter"]

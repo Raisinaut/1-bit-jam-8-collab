@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://w74wet0d605x"]
+[gd_scene load_steps=7 format=3 uid="uid://w74wet0d605x"]
 
 [ext_resource type="Script" uid="uid://towd7ajox7x7" path="res://objects/light_gun/gun/gun.gd" id="1_gkr66"]
 [ext_resource type="PackedScene" uid="uid://d3fv2yqipy8d0" path="res://objects/emitter/emitter.tscn" id="1_qe4yh"]
 [ext_resource type="Texture2D" uid="uid://ccre7wspv8vjw" path="res://assets/entities/circle.png" id="2_qud20"]
 [ext_resource type="Script" uid="uid://dsmsuyiho7hl8" path="res://components/general/AudioStreamPool.gd" id="4_0vth4"]
 [ext_resource type="AudioStream" uid="uid://b2v56iwpcacnd" path="res://assets/audio/fire/fire_2.wav" id="5_qud20"]
+[ext_resource type="AudioStream" uid="uid://7ekgcqgc83uk" path="res://assets/audio/gun/bfxr_overheat_start.wav" id="6_s1br6"]
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_gkr66")
-spread_angle = 1.5707963267948966
 
 [node name="Reticle" type="Sprite2D" parent="."]
 position = Vector2(48, 0)
@@ -25,3 +25,8 @@ audio_files = Array[AudioStream]([ExtResource("5_qud20")])
 initial_volume_db = -8.0
 pool_size = 2
 metadata/_custom_type_script = "uid://dsmsuyiho7hl8"
+
+[node name="OverheatSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_s1br6")
+volume_db = -6.0
+bus = &"SFX"

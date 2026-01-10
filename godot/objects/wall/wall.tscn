@@ -46,7 +46,6 @@ shape = SubResource("CircleShape2D_4pi7y")
 
 [node name="HumSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_g78qi")
-volume_db = -4.0
 max_distance = 800.0
 attenuation = 5.0
 panning_strength = 4.0

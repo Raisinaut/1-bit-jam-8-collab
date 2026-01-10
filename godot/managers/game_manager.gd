@@ -3,6 +3,7 @@ extends Node
 var player : Node2D = null
 var grid_node : GridNode = null
 var camera : ShakyCamera = null : set = set_camera
+var gun : Gun = null
 
 func set_camera(node) -> void:
 	camera = node
