@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnulls1dnuyh7"]
+[gd_scene load_steps=8 format=3 uid="uid://dnulls1dnuyh7"]
 
 [ext_resource type="Script" uid="uid://dumung4nj8afj" path="res://objects/exit/exit.gd" id="1_ywcxy"]
 [ext_resource type="Texture2D" uid="uid://julru8e5y45n" path="res://assets/entities/triangle.png" id="2_dh6xb"]
 [ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="3_2q721"]
+[ext_resource type="Script" path="res://objects/wall/ghost_detection.gd" id="4_0yegh"]
+[ext_resource type="AudioStream" uid="uid://du2kvirhxia08" path="res://assets/audio/hum.wav" id="5_5xn2x"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yegh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mne8"]
 size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mito1"]
+radius = 192.0
 
 [node name="Exit" type="Node2D"]
 script = ExtResource("1_ywcxy")
@@ -14,14 +19,34 @@ grid_offset = Vector2(32, 32)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_dh6xb")
 
-[node name="Shaker" parent="." node_paths=PackedStringArray("shake_target") instance=ExtResource("3_2q721")]
-shake_target = NodePath("")
+[node name="SpriteFill" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_dh6xb")
 
-[node name="Detection" type="Area2D" parent="."]
+[node name="Shaker" parent="." node_paths=PackedStringArray("shake_target") instance=ExtResource("3_2q721")]
+shake_target = NodePath("../Sprite2D")
+
+[node name="ProjectileDetection" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-shape = SubResource("RectangleShape2D_0yegh")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetection"]
+shape = SubResource("RectangleShape2D_6mne8")
+
+[node name="GhostDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_0yegh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostDetection"]
+visible = false
+shape = SubResource("CircleShape2D_mito1")
 
 [node name="VisibilityTimer" type="Timer" parent="."]
+
+[node name="HumSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_5xn2x")
+max_distance = 800.0
+attenuation = 5.0
+panning_strength = 4.0
+bus = &"Hum"
