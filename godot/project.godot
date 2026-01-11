@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="1-bit jam 8 - collab"
-run/main_scene="uid://bk385jtejykjy"
+run/main_scene="uid://dl6o2jld8tthv"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]

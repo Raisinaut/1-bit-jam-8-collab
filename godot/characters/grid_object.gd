@@ -26,7 +26,8 @@ func _init() -> void:
 func initialize_grid(grid: GridNode):
 	_grid = grid
 	await ready
-	grid_position = round((global_position - _grid.grid_origin) / _grid.grid_step)
+	var grid_relative_position = global_position - _grid.grid_origin - grid_offset
+	grid_position = round((grid_relative_position) / _grid.grid_step)
 	global_position = _actual_position()
 
 func attempt_move(direction: Vector2):

@@ -10,7 +10,7 @@ extends GridObject
 @onready var hum_sfx = $HumSFX
 
 var fade_time: float = 3.0 # seconds
-var fade_using_fill : bool = true
+var fade_using_fill : bool = false
 
 func _ready() -> void:
 	visibility_timer.wait_time = fade_time

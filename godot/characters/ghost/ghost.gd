@@ -18,7 +18,7 @@ var MAX_RECOVERY_TIME : float = 6 # seconds
 var move_speed : float = 150
 var stun_duration : float = 1.0 # seconds
 var stunned : bool = false
-var destoy_after_stun : bool = false
+var destoy_after_stun : bool = true
 
 enum STATES{CHASE, STUNNED, RECOVER, DESTROYED}
 var state = STATES.CHASE : set = set_state
@@ -66,7 +66,7 @@ func set_state(new_state : STATES) -> void:
 			set_deferred("monitorable", true)
 		STATES.STUNNED:
 			show()
-			stunned_sfx.play()
+			stunned_sfx.play_random()
 			static_sfx.stop()
 			set_deferred("monitorable", false)
 			sprite.active = true

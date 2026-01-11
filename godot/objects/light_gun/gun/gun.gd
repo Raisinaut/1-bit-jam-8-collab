@@ -27,6 +27,8 @@ var overheat_per_shot : float = 0.25
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	GameManager.gun = self
 
 func _process(delta: float) -> void:

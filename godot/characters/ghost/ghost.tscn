@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7atmjmpemtu5"]
+[gd_scene load_steps=12 format=3 uid="uid://b7atmjmpemtu5"]
 
 [ext_resource type="Script" uid="uid://duptta74coehq" path="res://characters/ghost/ghost.gd" id="1_lffqf"]
-[ext_resource type="Shader" uid="uid://d1o1w3ggv3l1a" path="res://components/flashing_sprite/flash.gdshader" id="3_lgww0"]
-[ext_resource type="Script" uid="uid://ddox1ivtqcvwk" path="res://components/flashing_sprite/flash_control.gd" id="4_4ie3m"]
+[ext_resource type="Shader" uid="uid://d1o1w3ggv3l1a" path="res://components/sprite_flasher/flash.gdshader" id="3_lgww0"]
+[ext_resource type="Script" uid="uid://ddox1ivtqcvwk" path="res://components/sprite_flasher/flash_control.gd" id="4_4ie3m"]
 [ext_resource type="Texture2D" uid="uid://bh7pwqxmpukis" path="res://assets/entities/ghost.png" id="4_lgww0"]
 [ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="6_a7n3o"]
-[ext_resource type="AudioStream" uid="uid://bu3065yd8phfg" path="res://assets/audio/static.wav" id="6_e6vcr"]
-[ext_resource type="AudioStream" uid="uid://brl5s8gii6lmv" path="res://assets/audio/stun_loop.wav" id="7_e6vcr"]
+[ext_resource type="AudioStream" uid="uid://bu3065yd8phfg" path="res://assets/audio/ghost/static.wav" id="6_e6vcr"]
+[ext_resource type="AudioStream" uid="uid://brl5s8gii6lmv" path="res://assets/audio/ghost/stun_loop.wav" id="7_e6vcr"]
 [ext_resource type="Script" uid="uid://dpolc4g5evx2f" path="res://components/general/border_positioner.gd" id="8_13mqu"]
+[ext_resource type="Script" uid="uid://djgdj2b8aggfr" path="res://components/general/VariableStreamPlayer2D.gd" id="9_nfyxw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a7n3o"]
 shader = ExtResource("3_lgww0")
@@ -49,5 +50,10 @@ bus = &"SFX"
 [node name="StunnedSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_e6vcr")
 volume_db = 2.0
+pitch_scale = 0.9547598
+max_distance = 2500.0
 panning_strength = 2.0
 bus = &"SFX"
+script = ExtResource("9_nfyxw")
+audio_files = Array[AudioStream]([ExtResource("7_e6vcr")])
+pitch_variance = 0.07

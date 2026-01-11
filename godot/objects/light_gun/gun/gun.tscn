@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d3fv2yqipy8d0" path="res://objects/emitter/emitter.tscn" id="1_qe4yh"]
 [ext_resource type="Texture2D" uid="uid://ccre7wspv8vjw" path="res://assets/entities/circle.png" id="2_qud20"]
 [ext_resource type="Script" uid="uid://dsmsuyiho7hl8" path="res://components/general/AudioStreamPool.gd" id="4_0vth4"]
-[ext_resource type="AudioStream" uid="uid://b2v56iwpcacnd" path="res://assets/audio/fire/fire_2.wav" id="5_qud20"]
+[ext_resource type="AudioStream" uid="uid://b2v56iwpcacnd" path="res://assets/audio/gun/fire/fire_2.wav" id="5_qud20"]
 [ext_resource type="AudioStream" uid="uid://7ekgcqgc83uk" path="res://assets/audio/gun/bfxr_overheat_start.wav" id="6_s1br6"]
 
 [node name="Gun" type="Node2D"]
