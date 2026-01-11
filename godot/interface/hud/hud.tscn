@@ -1,12 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctrk14oy5he4p"]
+[gd_scene load_steps=6 format=3 uid="uid://ctrk14oy5he4p"]
 
 [ext_resource type="PackedScene" uid="uid://ccv5w0h37upnm" path="res://interface/components/meter.tscn" id="1_cj6bh"]
 [ext_resource type="Script" uid="uid://d1aoett2igd7c" path="res://interface/hud/hud.gd" id="1_kni60"]
+[ext_resource type="PackedScene" uid="uid://bgcrnjnuanx54" path="res://interface/components/dialog.tscn" id="2_u4rvf"]
 [ext_resource type="Script" uid="uid://b6ekf6prfp2nu" path="res://components/visibility_flasher/visibility_flasher.gd" id="3_ngtag"]
 [ext_resource type="AudioStream" uid="uid://ljrlpoxac401" path="res://assets/audio/gun/ui_blink.wav" id="4_qleks"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_kni60")
+
+[node name="Dialog" parent="." instance=ExtResource("2_u4rvf")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 1048.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

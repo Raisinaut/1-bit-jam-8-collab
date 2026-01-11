@@ -2,6 +2,7 @@ class_name GridObject
 extends Node2D
 
 signal moved
+signal moved_exit
 signal bonked
 
 @export var vulnerable := false
@@ -41,7 +42,7 @@ func attempt_move(direction: Vector2):
 		moved.emit()
 	else:
 		if object is Exit:
-			GameManager.level.load_next_level()
+			moved_exit.emit()
 		else:
 			_bonk(direction)
 			move_direction = Vector2.ZERO
