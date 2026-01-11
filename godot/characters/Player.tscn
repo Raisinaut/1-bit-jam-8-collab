@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cynt0mxgo2qeh"]
+[gd_scene load_steps=16 format=3 uid="uid://cynt0mxgo2qeh"]
 
 [ext_resource type="Script" uid="uid://cnobsof5tvbwn" path="res://characters/player.gd" id="1_6newc"]
 [ext_resource type="Texture2D" uid="uid://ccre7wspv8vjw" path="res://assets/entities/circle.png" id="2_l3mkp"]
@@ -14,6 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://dvacbi2vlom6y" path="res://assets/audio/footsteps/step_normal-07.wav" id="12_p61vd"]
 [ext_resource type="AudioStream" uid="uid://cufwvcjcpc64b" path="res://assets/audio/footsteps/step_normal-08.wav" id="13_ydpy1"]
 [ext_resource type="AudioStream" uid="uid://mgfvqob65lkn" path="res://assets/audio/footsteps/step_normal-09.wav" id="14_xgxpv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l3mkp"]
+radius = 16.0
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_6newc")
@@ -39,3 +42,10 @@ initial_volume_db = 0.0
 bus_name = "SFX"
 minimum_interval = 0.3
 metadata/_custom_type_script = "uid://dsmsuyiho7hl8"
+
+[node name="GhostDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GhostDetection"]
+shape = SubResource("CircleShape2D_l3mkp")

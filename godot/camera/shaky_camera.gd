@@ -16,7 +16,8 @@ func small_shake() -> void:
 	shaker.start(0.3, 30, 10, 0)
 
 func _process(delta: float) -> void:
-	global_position = lerp(global_position, target.global_position, delta * 10)
+	if target:
+		global_position = lerp(global_position, target.global_position, delta * 10)
 
 func spin():
 	ignore_rotation = false

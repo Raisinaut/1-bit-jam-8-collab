@@ -8,5 +8,4 @@ var gun = null
 
 func set_camera(node) -> void:
 	camera = node
-	camera.target = player
 	camera.global_position = player.global_position

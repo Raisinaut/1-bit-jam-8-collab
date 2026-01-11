@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://to6voejy326e"]
+[gd_scene load_steps=11 format=3 uid="uid://to6voejy326e"]
 
 [ext_resource type="PackedScene" uid="uid://brrb85jfiiqh8" path="res://characters/GridNode.tscn" id="1_rhim3"]
 [ext_resource type="PackedScene" uid="uid://cynt0mxgo2qeh" path="res://characters/Player.tscn" id="2_gq1oc"]
 [ext_resource type="PackedScene" uid="uid://bkkgfo2kiy65l" path="res://objects/wall/wall.tscn" id="3_j6mmp"]
+[ext_resource type="PackedScene" uid="uid://dnulls1dnuyh7" path="res://objects/exit/exit.tscn" id="4_2x2rg"]
 [ext_resource type="PackedScene" uid="uid://dbk3p3q8hhi52" path="res://camera/shaky_camera.tscn" id="4_l5rx3"]
 [ext_resource type="Script" uid="uid://dmoqkvum1tuel" path="res://components/general/border_spawner.gd" id="5_0kwif"]
 [ext_resource type="PackedScene" uid="uid://b7atmjmpemtu5" path="res://characters/ghost/ghost.tscn" id="6_n35m1"]
@@ -10,6 +11,7 @@
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f7g2b"]
 scenes/1/scene = ExtResource("3_j6mmp")
+scenes/2/scene = ExtResource("4_2x2rg")
 
 [sub_resource type="TileSet" id="TileSet_1c2mv"]
 tile_size = Vector2i(64, 64)
@@ -36,7 +38,8 @@ tile_set = SubResource("TileSet_1c2mv")
 
 [node name="ShakyCamera" parent="." instance=ExtResource("4_l5rx3")]
 
-[node name="BorderSpawner" type="Node2D" parent="ShakyCamera" node_paths=PackedStringArray("instance_parent")]
+[node name="GhostSpawner" type="Node2D" parent="ShakyCamera" node_paths=PackedStringArray("instance_parent")]
+unique_name_in_owner = true
 script = ExtResource("5_0kwif")
 instance_parent = NodePath("../../Ghosts")
 scene_to_spawn = ExtResource("6_n35m1")

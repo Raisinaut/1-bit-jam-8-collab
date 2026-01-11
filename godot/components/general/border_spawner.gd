@@ -70,6 +70,8 @@ func _on_instance_tree_exited(instance) -> void:
 
 # TIMERS ----------------------------------------------------------------------
 func start_spawn_interval_timer() -> void:
+	if not get_tree():
+		return
 	var variation = randf_range(-interval_variation, interval_variation)
 	spawn_interval_timer = get_tree().create_timer(spawn_interval + variation)
 	spawn_interval_timer.timeout.connect(_on_spawn_interval_timer_timeout)

@@ -10,7 +10,7 @@ extends GridObject
 @onready var hum_sfx = $HumSFX
 
 var fade_time: float = 3.0 # seconds
-var fade_using_fill : bool = true
+var fade_using_fill : bool = false
 
 func _ready() -> void:
 	visibility_timer.wait_time = fade_time
@@ -59,6 +59,7 @@ func get_ghost_proximity_value() -> float:
 func update_fade() -> void:
 	var ghost_fade_value = lerp(0.0, 0.5, get_ghost_proximity_value())
 	var fade_value = max(get_fade_progress_value(), ghost_fade_value)
+	
 	if fade_using_fill:
 		# set fill scale (sprite edge will match collision)
 		sprite_fill.scale = Vector2.ONE * lerp(1.0, 0.8, fade_value)
