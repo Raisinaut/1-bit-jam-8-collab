@@ -40,9 +40,12 @@ func attempt_move(direction: Vector2):
 		move()
 		moved.emit()
 	else:
-		_bonk(direction)
-		move_direction = Vector2.ZERO
-		bonked.emit()
+		if object is Exit:
+			GameManager.level.load_next_level()
+		else:
+			_bonk(direction)
+			move_direction = Vector2.ZERO
+			bonked.emit()
 	start_move_cooldown()
 
 func move() -> void:

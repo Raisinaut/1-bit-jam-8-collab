@@ -1,22 +1,26 @@
-[gd_scene load_steps=9 format=4 uid="uid://bk385jtejykjy"]
+[gd_scene load_steps=12 format=4 uid="uid://bk385jtejykjy"]
 
-[ext_resource type="PackedScene" uid="uid://brrb85jfiiqh8" path="res://characters/GridNode.tscn" id="1_1c2mv"]
-[ext_resource type="PackedScene" uid="uid://bkkgfo2kiy65l" path="res://objects/wall/wall.tscn" id="1_f7g2b"]
-[ext_resource type="PackedScene" uid="uid://ctrk14oy5he4p" path="res://interface/hud/hud.tscn" id="1_gbhdq"]
-[ext_resource type="PackedScene" uid="uid://cynt0mxgo2qeh" path="res://characters/Player.tscn" id="1_gojnm"]
-[ext_resource type="PackedScene" uid="uid://dbk3p3q8hhi52" path="res://camera/shaky_camera.tscn" id="4_4ptq8"]
-[ext_resource type="PackedScene" uid="uid://b7atmjmpemtu5" path="res://characters/ghost/ghost.tscn" id="5_sb12i"]
-[ext_resource type="PackedScene" uid="uid://dnulls1dnuyh7" path="res://objects/exit/exit.tscn" id="4_sb12i"]
+[ext_resource type="PackedScene" uid="uid://brrb85jfiiqh8" path="res://characters/GridNode.tscn" id="1_ur00s"]
+[ext_resource type="Script" uid="uid://cxj52ilevsvl" path="res://levels/level.gd" id="1_wndkh"]
+[ext_resource type="PackedScene" uid="uid://ddmid0ge4k1kw" path="res://levels/level2.tscn" id="2_omn1t"]
+[ext_resource type="PackedScene" uid="uid://cynt0mxgo2qeh" path="res://characters/Player.tscn" id="2_wndkh"]
+[ext_resource type="PackedScene" uid="uid://bkkgfo2kiy65l" path="res://objects/wall/wall.tscn" id="3_ly3hx"]
+[ext_resource type="PackedScene" uid="uid://dnulls1dnuyh7" path="res://objects/exit/exit.tscn" id="4_4n8tn"]
+[ext_resource type="PackedScene" uid="uid://dbk3p3q8hhi52" path="res://camera/shaky_camera.tscn" id="5_wkb0e"]
+[ext_resource type="PackedScene" uid="uid://b7atmjmpemtu5" path="res://characters/ghost/ghost.tscn" id="6_paa45"]
+[ext_resource type="PackedScene" uid="uid://ctrk14oy5he4p" path="res://interface/hud/hud.tscn" id="7_axl34"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f7g2b"]
-scenes/1/scene = ExtResource("1_f7g2b")
-scenes/3/scene = ExtResource("4_sb12i")
+scenes/1/scene = ExtResource("3_ly3hx")
+scenes/3/scene = ExtResource("4_4n8tn")
 
 [sub_resource type="TileSet" id="TileSet_1c2mv"]
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetScenesCollectionSource_f7g2b")
 
-[node name="World" type="Node2D"]
+[node name="Level" type="Node2D"]
+script = ExtResource("1_wndkh")
+next_level_res = ExtResource("2_omn1t")
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
@@ -24,20 +28,20 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 1)
 
-[node name="GridNode" parent="." instance=ExtResource("1_1c2mv")]
+[node name="GridNode" parent="." instance=ExtResource("1_ur00s")]
 grid_step = 64.0
 
-[node name="Player" parent="GridNode" instance=ExtResource("1_gojnm")]
+[node name="Player" parent="GridNode" instance=ExtResource("2_wndkh")]
 position = Vector2(352, 416)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="GridNode"]
 tile_map_data = PackedByteArray("AAADAAoAAAAAAAAAAQADAAkAAAAAAAAAAQADAAgAAAAAAAAAAQADAAcAAAAAAAAAAQADAAYAAAAAAAAAAQADAAUAAAAAAAAAAQADAAQAAAAAAAAAAQAEAAQAAAAAAAAAAQAFAAQAAAAAAAAAAwAGAAQAAAAAAAAAAQAHAAQAAAAAAAAAAQAIAAQAAAAAAAAAAQAJAAQAAAAAAAAAAQAKAAQAAAAAAAAAAQALAAQAAAAAAAAAAQAMAAQAAAAAAAAAAQANAAQAAAAAAAAAAQANAAoAAAAAAAAAAQANAAkAAAAAAAAAAQANAAgAAAAAAAAAAQANAAcAAAAAAAAAAQANAAUAAAAAAAAAAQANAAYAAAAAAAAAAQADAAsAAAAAAAAAAQADAAwAAAAAAAAAAQADAA0AAAAAAAAAAQADAA4AAAAAAAAAAQADAA8AAAAAAAAAAQAEAA8AAAAAAAAAAQAFAA8AAAAAAAAAAQAGAA8AAAAAAAAAAQAHAA8AAAAAAAAAAQAIAA8AAAAAAAAAAQAJAA8AAAAAAAAAAQAKAA8AAAAAAAAAAQALAA8AAAAAAAAAAQAMAA8AAAAAAAAAAQANAA8AAAAAAAAAAQAOAA8AAAAAAAAAAQAPAA8AAAAAAAAAAQAQAA8AAAAAAAAAAQARAA8AAAAAAAAAAQASAA8AAAAAAAAAAQATAA8AAAAAAAAAAQAUAA8AAAAAAAAAAQAUAA4AAAAAAAAAAQAUAA0AAAAAAAAAAQAUAAwAAAAAAAAAAQAUAAsAAAAAAAAAAQAUAAoAAAAAAAAAAQAUAAkAAAAAAAAAAQAUAAgAAAAAAAAAAQAOAAoAAAAAAAAAAQAPAAoAAAAAAAAAAQAQAAoAAAAAAAAAAQAQAAgAAAAAAAAAAQAQAAkAAAAAAAAAAQAPAAgAAAAAAAAAAQAPAAcAAAAAAAAAAQAPAAYAAAAAAAAAAQAPAAUAAAAAAAAAAQAPAAQAAAAAAAAAAQAPAAMAAAAAAAAAAQAPAAIAAAAAAAAAAQAPAAEAAAAAAAAAAQAVAAgAAAAAAAAAAQAVAAcAAAAAAAAAAQAVAAYAAAAAAAAAAQAVAAUAAAAAAAAAAQAQAAEAAAAAAAAAAQARAAEAAAAAAAAAAQASAAEAAAAAAAAAAQATAAEAAAAAAAAAAQAUAAEAAAAAAAAAAQAWAAEAAAAAAAAAAQAXAAEAAAAAAAAAAQAYAAEAAAAAAAAAAQAZAAEAAAAAAAAAAQAaAAEAAAAAAAAAAQAWAAgAAAAAAAAAAQAXAAgAAAAAAAAAAQAYAAgAAAAAAAAAAQAbAAEAAAAAAAAAAQAbAAIAAAAAAAAAAQAbAAMAAAAAAAAAAQAbAAQAAAAAAAAAAQAbAAUAAAAAAAAAAQAbAAYAAAAAAAAAAQAbAAcAAAAAAAAAAQAbAAgAAAAAAAAAAQAbAAkAAAAAAAAAAQAbAAoAAAAAAAAAAQAbAAsAAAAAAAAAAQAbAAwAAAAAAAAAAQAbAA0AAAAAAAAAAQAWAAkAAAAAAAAAAQAWAAoAAAAAAAAAAQAWAAsAAAAAAAAAAQAWAAwAAAAAAAAAAQAWAA0AAAAAAAAAAQAXAA0AAAAAAAAAAQAYAA0AAAAAAAAAAQAZAA0AAAAAAAAAAQAaAA0AAAAAAAAAAQAVAAEAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_1c2mv")
 
-[node name="ShakyCamera" parent="." instance=ExtResource("4_4ptq8")]
+[node name="ShakyCamera" parent="." instance=ExtResource("5_wkb0e")]
 position = Vector2(640, 512)
 
-[node name="Ghost" parent="." instance=ExtResource("5_sb12i")]
+[node name="Ghost" parent="." instance=ExtResource("6_paa45")]
 position = Vector2(192, 128)
 
-[node name="HUD" parent="." instance=ExtResource("1_gbhdq")]
+[node name="HUD" parent="." instance=ExtResource("7_axl34")]
