@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://cobdrghm7l5pu" path="res://interface/ui_theme.tres" id="1_ur4r5"]
 
 [node name="Dialog" type="CenterContainer"]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
