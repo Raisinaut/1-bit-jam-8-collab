@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var dialog = $Dialog
 @onready var overheat_meter = %OverheatMeter
 @onready var visibility_flasher = $VisibilityFlasher
 @onready var flash_sfx = $FlashSFX
