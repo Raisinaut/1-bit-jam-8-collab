@@ -1,5 +1,6 @@
 extends Node
 
+var level : Node2D = null
 var player : Node2D = null
 var grid_node : GridNode = null
 var camera : ShakyCamera = null : set = set_camera
