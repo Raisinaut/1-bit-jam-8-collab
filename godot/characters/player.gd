@@ -37,7 +37,7 @@ func _process(_delta: float) -> void:
 
 func get_move_vector(x: float, y: float) -> Vector2:
 	if x != 0 and y != 0:
-		print(x," ",y)
+		#print(x," ",y)
 		if last_x == 0:   return Vector2(x, 0)
 		elif last_y == 0: return Vector2(0, y)
 		else:

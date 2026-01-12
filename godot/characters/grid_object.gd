@@ -55,6 +55,9 @@ func move() -> void:
 	move_tween.set_ease(Tween.EASE_OUT)#.set_trans(Tween.TRANS_SINE)
 	move_tween.tween_property(self, "global_position", _actual_position(), move_cooldown)
 
+func jump_to_actual_position() -> void:
+	global_position = _actual_position()
+
 func _actual_position():
 	return (grid_position * _grid.grid_step) + _grid.grid_origin + grid_offset
 

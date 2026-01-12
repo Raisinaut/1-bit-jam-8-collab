@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://to6voejy326e"]
+[gd_scene load_steps=13 format=3 uid="uid://to6voejy326e"]
 
+[ext_resource type="Script" uid="uid://cxj52ilevsvl" path="res://levels/level.gd" id="1_0kswt"]
 [ext_resource type="PackedScene" uid="uid://brrb85jfiiqh8" path="res://characters/GridNode.tscn" id="1_rhim3"]
 [ext_resource type="PackedScene" uid="uid://cynt0mxgo2qeh" path="res://characters/Player.tscn" id="2_gq1oc"]
 [ext_resource type="PackedScene" uid="uid://bkkgfo2kiy65l" path="res://objects/wall/wall.tscn" id="3_j6mmp"]
@@ -8,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dmoqkvum1tuel" path="res://components/general/border_spawner.gd" id="5_0kwif"]
 [ext_resource type="PackedScene" uid="uid://b7atmjmpemtu5" path="res://characters/ghost/ghost.tscn" id="6_n35m1"]
 [ext_resource type="PackedScene" uid="uid://ctrk14oy5he4p" path="res://interface/hud/hud.tscn" id="7_nxva2"]
+[ext_resource type="PackedScene" uid="uid://2pjsemektrcr" path="res://interface/screen_effects/screen_effects.tscn" id="10_65mu0"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f7g2b"]
 scenes/1/scene = ExtResource("3_j6mmp")
@@ -18,6 +20,7 @@ tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetScenesCollectionSource_f7g2b")
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_0kswt")
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
@@ -46,3 +49,5 @@ scene_to_spawn = ExtResource("6_n35m1")
 metadata/_custom_type_script = "uid://dmoqkvum1tuel"
 
 [node name="HUD" parent="." instance=ExtResource("7_nxva2")]
+
+[node name="ScreenEffects" parent="." instance=ExtResource("10_65mu0")]

@@ -13,7 +13,7 @@ signal overheat_ended
 @onready var overheat_sfx = $OverheatSFX
 
 @export_range(0, 96) var reticle_distance : int = 48 : set = set_reticle_distance
-@export_range(0, 2*PI) var spread_angle : float = PI/4
+@export_range(0, 2*PI) var spread_angle : float = PI/3
 @export_range(1, 1000) var emission_count : int = 100
 @export_range(0.05, 0.5) var emission_interval : float = 0.2
 @export_range(0.5, 5.0) var overheat_duration : float = 3.0
@@ -35,13 +35,10 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	look_at(get_global_mouse_position())
-	
-	if is_overheating():
-		return
-		
-	decay_overheat(delta)
-	if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
-		fire()
+	if not is_overheating():
+		decay_overheat(delta)
+		if Input.is_action_pressed("fire") or Input.is_action_just_pressed("fire"):
+			fire()
 
 func fire() -> void:
 	if is_interval_active():

@@ -16,7 +16,7 @@ extends Node2D
 var screen_border = Path2D.new()
 var border_follow = PathFollow2D.new()
 var spawn_interval_timer : SceneTreeTimer
-var active_instances : Array = []
+var active_instances : Array[Node2D] = []
 
 
 func _ready() -> void:
@@ -38,11 +38,14 @@ func spawn_scene() -> void:
 	if not instance_parent:
 		push_error("Instance parent not provided. Scene not spawned.")
 	var inst : Node2D = scene_to_spawn.instantiate()
-	instance_parent.call_deferred("add_child", inst)
+	active_instances.append(inst)
+	inst.tree_exited.connect(_on_instance_tree_exited.bind(inst))
 	inst.global_position = await get_random_border_position()
-	# save and delete instances from active array
-	inst.tree_entered.connect(_on_instance_tree_entered.bind(self))
-	inst.tree_exited.connect(_on_instance_tree_exited.bind(self))
+	instance_parent.call_deferred("add_child", inst)
+
+func free_active_instances() -> void:
+	for inst in active_instances:
+		inst.queue_free()
 
 func update_border():
 	var border := Curve2D.new()
@@ -59,9 +62,6 @@ func update_border():
 
 
 # SIGNALS ----------------------------------------------------------------------
-func _on_instance_tree_entered(instance) -> void:
-	active_instances.append(instance)
-
 func _on_instance_tree_exited(instance) -> void:
 	active_instances.erase(instance)
 	if under_instance_limit():
@@ -70,7 +70,7 @@ func _on_instance_tree_exited(instance) -> void:
 
 # TIMERS ----------------------------------------------------------------------
 func start_spawn_interval_timer() -> void:
-	if not get_tree():
+	if not is_inside_tree():
 		return
 	var variation = randf_range(-interval_variation, interval_variation)
 	spawn_interval_timer = get_tree().create_timer(spawn_interval + variation)

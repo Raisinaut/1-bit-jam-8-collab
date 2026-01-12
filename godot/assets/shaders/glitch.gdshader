@@ -1,109 +1,54 @@
+/*
+	Glitch Effect Shader by Yui Kinomoto @arlez80
+
+	MIT License
+*/
+
 shader_type canvas_item;
 
-/* ================= SETTINGS ================= */
+// 振動の強さ
+uniform float shake_power = 0.03;
+// 振動率
+uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.2;
+// 振動速度
+uniform float shake_speed = 5.0;
+// 振動ブロックサイズ
+uniform float shake_block_size = 30.5;
+// 色の分離率
+uniform float shake_color_rate : hint_range( 0.0, 1.0 ) = 0.01;
+// スクリーン
+uniform sampler2D screen_texture : hint_screen_texture;
 
-uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
-
-// Probability of glitch effect happening
-uniform float glitch_chance : hint_range(0.0, 1.0) = 0.2;
-
-// Speed of glitch state changes
-uniform float glitch_speed = 7.0;
-
-// Number of horizontal slices
-uniform float slice_density = 14.0;
-
-// Strength of horizontal displacement for slices
-uniform float slice_strength = 0.38;
-
-// Global shake amount
-uniform float shake_strength = 0.02;
-
-// Chromatic color separation amount
-uniform float chroma_offset = 0.016;
-
-// Digital noise intensity
-uniform float noise_strength = 0.2;
-
-// Intensity of color flashes
-uniform float color_flash_strength = 0.4;
-
-// Intensity of scanline drop effect
-uniform float scanline_strength = 0.18;
-
-// Strength of local warping distortion
-uniform float local_warp_strength = 0.14;
-
-// Chance for horizontal flip of slices
-uniform float flip_chance : hint_range(0.0,1.0) = 0.15;
-
-/* ================= RANDOM FUNCTIONS ================= */
-
-float rand(float x) { 
-	return fract(sin(x * 143758.5453) * 43758.5453); 
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46, -54.3415 ) ) ) );
 }
 
-float rand2(vec2 p) { 
-	return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); 
-}
-
-/* ================= FRAGMENT SHADER ================= */
-
-void fragment() {
-	vec2 uv = UV;
-
-	// Determine if glitch should happen this frame
-	float glitch = step(1.0 - glitch_chance, rand(floor(TIME * glitch_speed)));
-
-	/* ----- SLICES EFFECT ----- */
-	float slice_id = floor(uv.y * slice_density + rand(floor(TIME)));
-	float slice_rand = rand(slice_id + floor(TIME * glitch_speed));
-	float slice_mask = step(0.5, slice_rand) * glitch;
-
-	// Randomly flip some slices horizontally
-	if(rand(slice_id * TIME) < flip_chance) {
-		uv.x = 1.0 - uv.x;
-	}
-
-	// Apply horizontal displacement for this slice
-	uv.x += (slice_rand - 0.5) * slice_strength * slice_mask;
-
-	/* ----- MICRO JITTER ----- */
-	// Small random jitters to add chaos
-	float jitter = step(0.85, rand(TIME * 12.0)) * glitch;
-	uv.x += (rand(TIME * 3.0) - 0.5) * 0.08 * jitter;
-
-	/* ----- LOCAL WARP ----- */
-	// Random local distortion in some slices
-	float warp_zone = step(0.65, rand2(vec2(slice_id, TIME)));
-	uv += (vec2(rand2(uv + TIME), rand2(uv - TIME)) - 0.5) * local_warp_strength * warp_zone * glitch;
-
-	/* ----- GLOBAL SHAKE ----- */
-	uv += vec2(
-		rand(TIME * 1.3) - 0.5,
-		rand(TIME * 1.7) - 0.5
-	) * shake_strength * glitch;
-
-	/* ----- COLOR SPLIT ----- */
-	vec4 base = texture(TEXTURE, uv);
-	float r = texture(TEXTURE, uv + vec2(chroma_offset * glitch, 0.0)).r;
-	float b = texture(TEXTURE, uv - vec2(chroma_offset * glitch, 0.0)).b;
-	vec3 color = vec3(r, base.g, b);
-
-	/* ----- DIGITAL NOISE ----- */
-	color += (rand2(uv * TIME * 1.5) - 0.5) * noise_strength * glitch;
-
-	/* ----- SCANLINE DROP ----- */
-	float scan = step(0.9, rand(uv.y * 100.0 + TIME * 10.0));
-	color *= 1.0 - scan * scanline_strength * glitch;
-
-	/* ----- COLOR FLASH ----- */
-	vec3 flash_color = vec3(
-		step(0.5, rand(TIME + 0.1)),
-		step(0.5, rand(TIME + 3.1)),
-		step(0.5, rand(TIME + 6.1))
+void fragment( )
+{
+	float enable_shift = float(
+		random( trunc( TIME * shake_speed ) )
+	<	shake_rate
 	);
-	color = mix(color, flash_color, rand(TIME * 4.0) * color_flash_strength * glitch);
 
-	COLOR = vec4(color, base.a);
+	vec2 fixed_uv = SCREEN_UV;
+	fixed_uv.x += (
+		random(
+			( trunc( SCREEN_UV.y * shake_block_size ) / shake_block_size )
+		+	TIME
+		) - 0.5
+	) * shake_power * enable_shift;
+
+	vec4 pixel_color = textureLod( screen_texture, fixed_uv, 0.0 );
+	pixel_color.r = mix(
+		pixel_color.r
+	,	textureLod( screen_texture, fixed_uv + vec2( shake_color_rate, 0.0 ), 0.0 ).r
+	,	enable_shift
+	);
+	pixel_color.b = mix(
+		pixel_color.b
+	,	textureLod( screen_texture, fixed_uv + vec2( -shake_color_rate, 0.0 ), 0.0 ).b
+	,	enable_shift
+	);
+	COLOR = pixel_color;
 }
