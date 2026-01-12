@@ -56,6 +56,7 @@ func move() -> void:
 	move_tween.tween_property(self, "global_position", _actual_position(), move_cooldown)
 
 func jump_to_actual_position() -> void:
+	if move_tween : move_tween.kill()
 	global_position = _actual_position()
 
 func _actual_position():

@@ -1,7 +1,7 @@
 extends CenterContainer
 
-@onready var btn_descend = $PanelContainer/MarginContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BtnDescend
-@onready var btn_stay = $PanelContainer/MarginContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BtnStay
+@onready var btn_descend = %BtnDescend
+@onready var btn_stay = %BtnStay
 
 func _ready() -> void:
 	GameManager.player.moved_exit.connect(show_dialog)

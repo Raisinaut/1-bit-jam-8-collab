@@ -1,4 +1,42 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cobdrghm7l5pu"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cobdrghm7l5pu"]
+
+[ext_resource type="FontFile" uid="uid://dxm25pw4weirr" path="res://assets/fonts/DM_Sans/static/DMSans-Bold.ttf" id="1_yokxo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8a7ra"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 6
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 4.0
+expand_margin_top = 2.0
+expand_margin_right = 4.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7egx6"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 6
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 4.0
+expand_margin_top = 2.0
+expand_margin_right = 4.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2c2k"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 6
+border_width_right = 8
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 4.0
+expand_margin_top = 2.0
+expand_margin_right = 4.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pub27"]
 bg_color = Color(0, 0, 0, 1)
@@ -7,5 +45,16 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 1, 1, 1)
 
 [resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_yokxo")
+Button/styles/focus = SubResource("StyleBoxFlat_8a7ra")
+Button/styles/hover = SubResource("StyleBoxFlat_8a7ra")
+Button/styles/normal = SubResource("StyleBoxFlat_7egx6")
+Button/styles/pressed = SubResource("StyleBoxFlat_s2c2k")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_pub27")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_yokxo")

@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://2pjsemektrcr"]
+[gd_scene load_steps=6 format=3 uid="uid://2pjsemektrcr"]
 
 [ext_resource type="Shader" uid="uid://cdjak00jx4xf0" path="res://assets/shaders/glitch.gdshader" id="1_kvjg5"]
 [ext_resource type="Script" uid="uid://ddxccfi7t0vvd" path="res://interface/screen_effects/screen_effects.gd" id="1_ooivo"]
+[ext_resource type="Shader" uid="uid://cjh27j1ef2rlo" path="res://interface/screen_effects/invert.gdshader" id="3_y1nwl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o8tco"]
 shader = ExtResource("1_kvjg5")
-shader_parameter/shake_power = 0.03
+shader_parameter/shake_power = 0.04
 shader_parameter/shake_rate = 1.0
-shader_parameter/shake_speed = 5.0
-shader_parameter/shake_block_size = 32.0
+shader_parameter/shake_speed = 6.0
+shader_parameter/shake_block_size = 128.0
 shader_parameter/shake_color_rate = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_voble"]
+shader = ExtResource("3_y1nwl")
 
 [node name="ScreenEffects" type="CanvasLayer"]
 process_mode = 3
@@ -18,6 +22,15 @@ script = ExtResource("1_ooivo")
 [node name="Glitch" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_o8tco")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Invert" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_voble")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

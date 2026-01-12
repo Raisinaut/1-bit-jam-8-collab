@@ -3,44 +3,46 @@ extends Area2D
 
 var MAX_SPEED : float = 300
 var MIN_SPEED : float = 150
-var ACCELERATION : float = 10
+var ACCELERATION : float = 20
 var MIN_RECOVERY_TIME : float = 4 # seconds
 var MAX_RECOVERY_TIME : float = 6 # seconds
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var stun_timer : Timer = $StunTimer
 @onready var shaker = $Shaker
-@onready var border_positioner = $BorderPositioner
+@onready var stats = $Stats
+@onready var hurtbox = $HurtBox
+@onready var visibility_flasher = $VisibilityFlasher
 
 @onready var static_sfx = $StaticSFX
+@onready var harsh_static_sfx = $HarshStaticSFX
 @onready var stunned_sfx = $StunnedSFX
+@onready var scream_sfx = $ScreamSFX
 
 var move_speed : float = 150
 var stun_duration : float = 1.0 # seconds
 var stunned : bool = false
-var destoy_after_stun : bool = true
+var flash_duration : float = 0.12
+var flash_timer : SceneTreeTimer
 
-enum STATES{CHASE, STUNNED, RECOVER, DESTROYED}
+enum STATES{CHASE, DESTROYED}
 var state = STATES.CHASE : set = set_state
 
 
 func _ready() -> void:
 	state = state
-	area_entered.connect(_on_area_entered)
+	stats.hp_depleted.connect(_on_stats_hp_depleted)
 	stun_timer.timeout.connect(_on_stun_timer_timeout)
 	stun_timer.one_shot = true
+	scream_sfx.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _process(delta: float) -> void:
 	match(state):
 		STATES.CHASE:
 			follow_player(delta)
 			increase_move_speed(delta)
-		STATES.STUNNED:
-			shaker.start(0.2, 30, 50)
-		STATES.RECOVER:
-			pass
 		STATES.DESTROYED:
-			pass
+			shaker.start(0.2, 30, 50)
 
 func follow_player(delta: float) -> void:
 	var player = GameManager.player
@@ -52,6 +54,9 @@ func increase_move_speed(delta: float) -> void:
 	move_speed += ACCELERATION * delta
 	move_speed = min(move_speed, MAX_SPEED)
 
+func dampen_move_speed() -> void:
+	move_speed = max(move_speed * 0.75, MIN_SPEED)
+
 func reset_move_speed() -> void:
 	move_speed = MIN_SPEED
 
@@ -61,53 +66,52 @@ func set_state(new_state : STATES) -> void:
 	match(state):
 		STATES.CHASE:
 			hide()
-			teleport_to_view_edge()
 			static_sfx.play()
 			set_deferred("monitorable", true)
-		STATES.STUNNED:
+		STATES.DESTROYED:
 			show()
 			stunned_sfx.play_random()
 			static_sfx.stop()
 			set_deferred("monitorable", false)
 			sprite.active = true
 			stun_timer.start(stun_duration)
-		STATES.RECOVER:
-			hide()
-			teleport_far_away()
-			reset_move_speed()
-			stunned_sfx.stop()
-			start_recovery_timer()
-		STATES.DESTROYED:
-			destroy()
 
-func teleport_far_away() -> void:
-	global_position = Vector2.ONE * 200000
+func take_damage(amount : int) -> void:
+	stats.hp -= amount
+	dampen_move_speed()
+	if stats.hp > 0:
+		flash()
 
-func teleport_to_view_edge() -> void:
-	global_position = await border_positioner.get_random_border_position()
+func flash() -> void:
+	show()
+	
+	# play hit sfx
+	harsh_static_sfx.play_random()
+	flash_timer = get_tree().create_timer(flash_duration)
+	
+	# flash sprite
+	visibility_flasher.active = true
+	await flash_timer.timeout
+	visibility_flasher.active = false
+	
+	# stop hit sfx
+	harsh_static_sfx.stop()
+	if state == STATES.CHASE:
+		hide()
 
-func start_recovery_timer():
-	var recovery_time = randf_range(MIN_RECOVERY_TIME, MAX_RECOVERY_TIME)
-	var recovery_timer = get_tree().create_timer(recovery_time)
-	recovery_timer.timeout.connect(_on_recovery_timer_timeout)
+func scream() -> void:
+	show()
+	scream_sfx.play_random()
 
 func destroy() -> void:
 	queue_free()
 
 # SIGNALS ----------------------------------------------------------------------
-func _on_area_entered(area : Area2D) -> void:
-	if state == STATES.CHASE:
-		if area is Projectile:
-			state = STATES.STUNNED
-			area.queue_free()
-
+func _on_stats_hp_depleted() -> void:
+	state = STATES.DESTROYED
 
 func _on_stun_timer_timeout() -> void:
-	sprite.active = false
-	if destoy_after_stun:
-		state = STATES.DESTROYED
-	else:
-		state = STATES.RECOVER
+	queue_free()
 
 func _on_recovery_timer_timeout() -> void:
 	state = STATES.CHASE

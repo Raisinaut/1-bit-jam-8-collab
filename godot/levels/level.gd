@@ -41,7 +41,8 @@ func _on_player_ghost_touched() -> void:
 func glitch() -> void:
 	get_tree().paused = true
 	screen_effects.glitch_enabled = true
+	#screen_effects.invert_enabled = true
 	await get_tree().create_timer(glitch_duration).timeout
 	screen_effects.glitch_enabled = false
+	#screen_effects.invert_enabled = false
 	get_tree().paused = false
-	

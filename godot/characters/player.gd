@@ -54,5 +54,6 @@ func _on_bonked() -> void:
 	# play bonk sfx
 	pass
 
-func _on_ghost_detection_area_entered(_area : Area2D) -> void:
+func _on_ghost_detection_area_entered(ghost : Ghost) -> void:
+	ghost.scream()
 	touched_ghost.emit()

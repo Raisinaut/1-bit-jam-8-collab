@@ -15,7 +15,7 @@ signal overheat_ended
 @export_range(0, 96) var reticle_distance : int = 48 : set = set_reticle_distance
 @export_range(0, 2*PI) var spread_angle : float = PI/3
 @export_range(1, 1000) var emission_count : int = 100
-@export_range(0.05, 0.5) var emission_interval : float = 0.2
+@export_range(0.05, 0.5) var emission_interval : float = 0.25
 @export_range(0.5, 5.0) var overheat_duration : float = 3.0
 
 var interval_timer : SceneTreeTimer
