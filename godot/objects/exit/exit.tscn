@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dumung4nj8afj" path="res://objects/exit/exit.gd" id="1_ywcxy"]
 [ext_resource type="Texture2D" uid="uid://julru8e5y45n" path="res://assets/entities/triangle.png" id="2_dh6xb"]
 [ext_resource type="PackedScene" uid="uid://cn0v5esu1bae3" path="res://objects/wall/shaker.tscn" id="3_2q721"]
-[ext_resource type="Script" uid="uid://2d7aq2wnyt7a" path="res://objects/wall/ghost_detection.gd" id="4_0yegh"]
+[ext_resource type="Script" path="res://objects/wall/ghost_detection.gd" id="4_0yegh"]
 [ext_resource type="AudioStream" uid="uid://du2kvirhxia08" path="res://assets/audio/ghost/hum.wav" id="5_5xn2x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mne8"]
@@ -32,6 +32,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetection"]
 shape = SubResource("RectangleShape2D_6mne8")
+debug_color = Color(0.6397788, 0.5253955, 0, 0.41960785)
 
 [node name="GhostDetection" type="Area2D" parent="."]
 collision_layer = 0

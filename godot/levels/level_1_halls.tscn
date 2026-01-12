@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://to6voejy326e" path="res://levels/_level_basis.tscn" id="1_3c0dk"]
 [ext_resource type="Script" uid="uid://cxj52ilevsvl" path="res://levels/level.gd" id="2_3jul4"]
-[ext_resource type="PackedScene" uid="uid://df1ha4ckej1xf" path="res://levels/level_final.tscn" id="3_je04b"]
+[ext_resource type="PackedScene" uid="uid://cqfqe3qa11fe4" path="res://levels/level_2_maze.tscn" id="3_4swmm"]
 [ext_resource type="PackedScene" uid="uid://dnulls1dnuyh7" path="res://objects/exit/exit.tscn" id="4_je04b"]
 
 [node name="World" instance=ExtResource("1_3c0dk")]
 script = ExtResource("2_3jul4")
-next_level_res = ExtResource("3_je04b")
+next_level_res = ExtResource("3_4swmm")
 
 [node name="Player" parent="Grid" index="0"]
 position = Vector2(608, 544)
