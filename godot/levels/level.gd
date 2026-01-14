@@ -1,6 +1,8 @@
 class_name Level
 extends Node2D
 
+signal glitch_finished
+
 @export var next_level_res: Resource
 
 @onready var spawner = %GhostSpawner
@@ -46,3 +48,4 @@ func glitch() -> void:
 	screen_effects.glitch_enabled = false
 	#screen_effects.invert_enabled = false
 	get_tree().paused = false
+	glitch_finished.emit()

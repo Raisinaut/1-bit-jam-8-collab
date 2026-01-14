@@ -1,42 +1,32 @@
-[gd_scene load_steps=13 format=4 uid="uid://df1ha4ckej1xf"]
+[gd_scene load_steps=4 format=4 uid="uid://df1ha4ckej1xf"]
 
 [ext_resource type="PackedScene" uid="uid://to6voejy326e" path="res://levels/_level_basis.tscn" id="1_0qtht"]
-[ext_resource type="Script" uid="uid://cxj52ilevsvl" path="res://levels/level.gd" id="2_gibqe"]
-[ext_resource type="PackedScene" uid="uid://brrb85jfiiqh8" path="res://characters/GridNode.tscn" id="3_savxs"]
-[ext_resource type="PackedScene" uid="uid://cynt0mxgo2qeh" path="res://characters/Player.tscn" id="4_1hfnh"]
-[ext_resource type="PackedScene" uid="uid://dnulls1dnuyh7" path="res://objects/exit/exit.tscn" id="4_mnoxy"]
-[ext_resource type="PackedScene" uid="uid://bkkgfo2kiy65l" path="res://objects/wall/wall.tscn" id="5_skp6n"]
-[ext_resource type="PackedScene" uid="uid://dbk3p3q8hhi52" path="res://camera/shaky_camera.tscn" id="7_n7kmf"]
-[ext_resource type="PackedScene" uid="uid://b7atmjmpemtu5" path="res://characters/ghost/ghost.tscn" id="8_c4hw6"]
-[ext_resource type="PackedScene" uid="uid://ctrk14oy5he4p" path="res://interface/hud/hud.tscn" id="9_1w4la"]
+[ext_resource type="PackedScene" uid="uid://bgxovmuehwg6g" path="res://interface/splash_screens/thank_you.tscn" id="2_32321"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f7g2b"]
-scenes/1/scene = ExtResource("5_skp6n")
-scenes/3/scene = ExtResource("4_mnoxy")
+[sub_resource type="GDScript" id="GDScript_u3ekg"]
+script/source = "extends Level
 
-[sub_resource type="TileSet" id="TileSet_1c2mv"]
-tile_size = Vector2i(64, 64)
-sources/0 = SubResource("TileSetScenesCollectionSource_f7g2b")
+func _ready() -> void:
+	super()
+	await get_tree().create_timer(20).timeout
+	spawner.max_instances = 6
+	spawner.spawn_interval = 0.5
+	spawner.start_spawn_interval_timer()
+	glitch_finished.connect(_on_glitch_finished)
 
-[sub_resource type="PackedScene" id="PackedScene_hslst"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("Level", "Node2D", "script", "Background", "ColorRect", "visible", "offset_right", "offset_bottom", "color", "GridNode", "grid_step", "Player", "position", "TileMapLayer", "TileMapLayer", "tile_map_data", "tile_set", "ShakyCamera", "position", "Ghost", "position", "HUD"),
-"node_count": 8,
-"node_paths": [NodePath("."), NodePath("."), NodePath("./GridNode"), NodePath("./GridNode"), NodePath("."), NodePath("."), NodePath(".")],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 4, 5, 1, 6, 2, 7, 3, 8, 4, 0, 1073741825, 0, 2147483647, 9, 5, 1, 10, 6, 0, 1073741826, 0, 2147483647, 11, 7, 1, 12, 8, 0, 1073741827, 0, 14, 13, -1, 2, 15, 9, 16, 10, 0, 1073741828, 0, 2147483647, 17, 11, 1, 18, 12, 0, 1073741829, 0, 2147483647, 19, 13, 1, 20, 14, 0, 1073741830, 0, 2147483647, 21, 15, 0, 0),
-"variants": [ExtResource("2_gibqe"), false, 1920.0, 1080.0, Color(0, 0, 0, 1), ExtResource("3_savxs"), 64.0, ExtResource("4_1hfnh"), Vector2(416, 672), PackedByteArray("AAADAAoAAAAAAAAAAQADAAkAAAAAAAAAAQADAAgAAAAAAAAAAQADAAcAAAAAAAAAAQADAAYAAAAAAAAAAQADAAUAAAAAAAAAAQADAAQAAAAAAAAAAQAEAAQAAAAAAAAAAQAFAAQAAAAAAAAAAQAGAAQAAAAAAAAAAQAHAAQAAAAAAAAAAQAIAAQAAAAAAAAAAQAJAAQAAAAAAAAAAQAKAAQAAAAAAAAAAQALAAQAAAAAAAAAAQAMAAQAAAAAAAAAAQANAAQAAAAAAAAAAQADAAsAAAAAAAAAAQADAAwAAAAAAAAAAQADAA0AAAAAAAAAAQADAA4AAAAAAAAAAQADAA8AAAAAAAAAAQAEAA8AAAAAAAAAAQAFAA8AAAAAAAAAAQAGAA8AAAAAAAAAAQAHAA8AAAAAAAAAAQAIAA8AAAAAAAAAAQAJAA8AAAAAAAAAAQAKAA8AAAAAAAAAAQALAA8AAAAAAAAAAQAMAA8AAAAAAAAAAQANAA8AAAAAAAAAAQAOAAQAAAAAAAAAAQAOAAUAAAAAAAAAAQAOAAYAAAAAAAAAAQAOAAcAAAAAAAAAAQAOAAgAAAAAAAAAAQAOAAkAAAAAAAAAAQAOAAoAAAAAAAAAAQAOAAsAAAAAAAAAAQAOAAwAAAAAAAAAAQAOAA0AAAAAAAAAAQAOAA4AAAAAAAAAAQAOAA8AAAAAAAAAAQA="), SubResource("TileSet_1c2mv"), ExtResource("7_n7kmf"), Vector2(640, 512), ExtResource("8_c4hw6"), Vector2(192, 128), ExtResource("9_1w4la")],
-"version": 3
-}
+func _on_glitch_finished() -> void:
+	load_next_level()
+"
 
 [node name="World" instance=ExtResource("1_0qtht")]
-script = ExtResource("2_gibqe")
-next_level_res = SubResource("PackedScene_hslst")
+script = SubResource("GDScript_u3ekg")
+next_level_res = ExtResource("2_32321")
 
 [node name="Player" parent="Grid" index="0"]
 position = Vector2(608, 544)
 
 [node name="TileMapLayer" parent="Grid" index="1"]
 tile_map_data = PackedByteArray("AAAHAAcAAAAAAAAAAQAHAAgAAAAAAAAAAQAHAAkAAAAAAAAAAQAHAAoAAAAAAAAAAQAHAAYAAAAAAAAAAQAIAAoAAAAAAAAAAQAJAAoAAAAAAAAAAQAKAAoAAAAAAAAAAQALAAoAAAAAAAAAAQALAAkAAAAAAAAAAQALAAgAAAAAAAAAAQALAAcAAAAAAAAAAQALAAYAAAAAAAAAAQALAAUAAAAAAAAAAQALAAQAAAAAAAAAAQALAAMAAAAAAAAAAQAHAAUAAAAAAAAAAQAHAAQAAAAAAAAAAQAHAAMAAAAAAAAAAQAHAAIAAAAAAAAAAQAHAAEAAAAAAAAAAQAHAAAAAAAAAAAAAQAHAP//AAAAAAAAAQAHAP7/AAAAAAAAAQALAAIAAAAAAAAAAQALAAEAAAAAAAAAAQALAAAAAAAAAAAAAQALAP//AAAAAAAAAQALAP7/AAAAAAAAAQALAP3/AAAAAAAAAQAMAP3/AAAAAAAAAQANAP3/AAAAAAAAAQAOAP3/AAAAAAAAAQAQAP3/AAAAAAAAAQARAP3/AAAAAAAAAQASAP3/AAAAAAAAAQATAP3/AAAAAAAAAQAHAP3/AAAAAAAAAQAGAP3/AAAAAAAAAQAFAP3/AAAAAAAAAQAEAP3/AAAAAAAAAQACAP3/AAAAAAAAAQABAP3/AAAAAAAAAQAAAP3/AAAAAAAAAQD///3/AAAAAAAAAQAFAPf/AAAAAAAAAgAIAPf/AAAAAAAAAgAPAPf/AAAAAAAAAgD///T/AAAAAAAAAgD///X/AAAAAAAAAgD///b/AAAAAAAAAgD///f/AAAAAAAAAgAAAPf/AAAAAAAAAgABAPT/AAAAAAAAAgABAPX/AAAAAAAAAgABAPb/AAAAAAAAAgABAPf/AAAAAAAAAgAEAPT/AAAAAAAAAgAEAPX/AAAAAAAAAgAEAPb/AAAAAAAAAgAEAPf/AAAAAAAAAgAFAPT/AAAAAAAAAgAGAPX/AAAAAAAAAgAGAPb/AAAAAAAAAgAIAPT/AAAAAAAAAgAIAPX/AAAAAAAAAgAIAPb/AAAAAAAAAgAKAPT/AAAAAAAAAgAKAPX/AAAAAAAAAgAKAPb/AAAAAAAAAgAKAPf/AAAAAAAAAgALAPT/AAAAAAAAAgALAPf/AAAAAAAAAgAMAPX/AAAAAAAAAgAMAPb/AAAAAAAAAgAPAPT/AAAAAAAAAgAPAPX/AAAAAAAAAgAPAPb/AAAAAAAAAgARAPT/AAAAAAAAAgASAPT/AAAAAAAAAgASAPX/AAAAAAAAAgASAPb/AAAAAAAAAgASAPf/AAAAAAAAAgATAPT/AAAAAAAAAgADAP3/AAAAAAAAAQAPAP3/AAAAAAAAAQAUAP3/AAAAAAAAAQAVAP3/AAAAAAAAAQAWAP3/AAAAAAAAAQAXAP3/AAAAAAAAAQAYAP3/AAAAAAAAAQAZAP3/AAAAAAAAAQD+//3/AAAAAAAAAQD9//3/AAAAAAAAAQD8//3/AAAAAAAAAQD7//3/AAAAAAAAAQD6//3/AAAAAAAAAQD5//3/AAAAAAAAAQD5//z/AAAAAAAAAQD5//v/AAAAAAAAAQD5//r/AAAAAAAAAQD5//n/AAAAAAAAAQD5//j/AAAAAAAAAQD5//f/AAAAAAAAAQD5//b/AAAAAAAAAQD5//X/AAAAAAAAAQD5//T/AAAAAAAAAQD5//P/AAAAAAAAAQD5//L/AAAAAAAAAQD5//H/AAAAAAAAAQD5//D/AAAAAAAAAQD5/+//AAAAAAAAAQD5/+7/AAAAAAAAAQD6/+7/AAAAAAAAAQD7/+7/AAAAAAAAAQD8/+7/AAAAAAAAAQD9/+7/AAAAAAAAAQD+/+7/AAAAAAAAAQD//+7/AAAAAAAAAQAAAO7/AAAAAAAAAQABAO7/AAAAAAAAAQACAO7/AAAAAAAAAQADAO7/AAAAAAAAAQAEAO7/AAAAAAAAAQAFAO7/AAAAAAAAAQAGAO7/AAAAAAAAAQAHAO7/AAAAAAAAAQAIAO7/AAAAAAAAAQAJAO7/AAAAAAAAAQAKAO7/AAAAAAAAAQALAO7/AAAAAAAAAQAMAO7/AAAAAAAAAQANAO7/AAAAAAAAAQAOAO7/AAAAAAAAAQAPAO7/AAAAAAAAAQAQAO7/AAAAAAAAAQARAO7/AAAAAAAAAQASAO7/AAAAAAAAAQATAO7/AAAAAAAAAQAUAO7/AAAAAAAAAQAVAO7/AAAAAAAAAQAWAO7/AAAAAAAAAQAXAO7/AAAAAAAAAQAYAO7/AAAAAAAAAQAZAO7/AAAAAAAAAQAZAO//AAAAAAAAAQAZAPD/AAAAAAAAAQAZAPH/AAAAAAAAAQAZAPL/AAAAAAAAAQAZAPP/AAAAAAAAAQAZAPT/AAAAAAAAAQAZAPX/AAAAAAAAAQAZAPb/AAAAAAAAAQAZAPf/AAAAAAAAAQAZAPj/AAAAAAAAAQAZAPn/AAAAAAAAAQAZAPr/AAAAAAAAAQAZAPv/AAAAAAAAAQAZAPz/AAAAAAAAAQA=")
+
+[node name="GhostSpawner" parent="ShakyCamera" index="1"]
+max_instances = 0

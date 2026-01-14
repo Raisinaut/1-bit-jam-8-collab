@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://kj6n63bix0me"]
+
+[ext_resource type="Script" uid="uid://b3aimoyun03km" path="res://autoloads/screenshot_tool/scripts/screenshot_tool.gd" id="1_1ag45"]
+[ext_resource type="Script" uid="uid://c33q6fh135y4t" path="res://autoloads/screenshot_tool/scripts/preview_overlay.gd" id="2_8h1pt"]
+[ext_resource type="Script" uid="uid://bkg1vs3mnhbds" path="res://autoloads/screenshot_tool/scripts/confirmation_dialog.gd" id="4_dk0yf"]
+
+[sub_resource type="Theme" id="Theme_dhrj6"]
+Button/font_sizes/font_size = 8
+Button/fonts/font = null
+
+[sub_resource type="Gradient" id="Gradient_1ag45"]
+offsets = PackedFloat32Array(0, 0.227273)
+colors = PackedColorArray(0, 0, 0, 0.266667, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hmft1"]
+gradient = SubResource("Gradient_1ag45")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="ScreenshotTool" type="Node"]
+process_mode = 3
+script = ExtResource("1_1ag45")
+confirm_before_saving = false
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+title = "Save a Screenshot"
+initial_position = 1
+size = Vector2i(1600, 1000)
+transient_to_focused = true
+force_native = true
+content_scale_factor = 2.0
+access = 2
+
+[node name="PreviewInterface" type="CanvasLayer" parent="."]
+script = ExtResource("2_8h1pt")
+
+[node name="Control" type="Control" parent="PreviewInterface"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_dhrj6")
+
+[node name="Preview" type="TextureRect" parent="PreviewInterface/Control"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 144.0
+mouse_filter = 2
+expand_mode = 3
+
+[node name="Flash" type="ColorRect" parent="PreviewInterface/Control"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 144.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Shadow" type="TextureRect" parent="PreviewInterface/Control"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 144.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hmft1")
+
+[node name="ConfirmationDialog" type="MarginContainer" parent="PreviewInterface/Control"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 144.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("4_dk0yf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PreviewInterface/Control/ConfirmationDialog"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="cancel" type="Button" parent="PreviewInterface/Control/ConfirmationDialog/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="confirm" type="Button" parent="PreviewInterface/Control/ConfirmationDialog/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save Screenshot"

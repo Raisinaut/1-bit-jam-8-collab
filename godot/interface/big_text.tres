@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cselnhxq3ab6b"]
+
+[ext_resource type="FontFile" uid="uid://cjlxylcrtlkly" path="res://assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf" id="1_0wp2p"]
+
+[resource]
+font = ExtResource("1_0wp2p")
+font_size = 48

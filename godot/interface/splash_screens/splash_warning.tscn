@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbv8ccuq51win"]
+[gd_scene load_steps=3 format=3 uid="uid://dbv8ccuq51win"]
 
 [ext_resource type="Script" uid="uid://sn6jlltj1cnv" path="res://interface/splash_screens/splash_screen.gd" id="1_0ryww"]
-[ext_resource type="FontFile" uid="uid://cjlxylcrtlkly" path="res://assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf" id="2_0ryww"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_1gyer"]
-font = ExtResource("2_0ryww")
-font_size = 48
+[ext_resource type="LabelSettings" uid="uid://cselnhxq3ab6b" path="res://interface/big_text.tres" id="2_0ryww"]
 
 [node name="SplashScreen" type="CanvasLayer"]
 script = ExtResource("1_0ryww")
@@ -29,5 +25,5 @@ grow_vertical = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "WARNING: Contains flashing lights and sudden volume shifts"
-label_settings = SubResource("LabelSettings_1gyer")
+label_settings = ExtResource("2_0ryww")
 horizontal_alignment = 1

@@ -5,10 +5,8 @@ signal finished
 @onready var text = %Text
 @onready var container = $MarginContainer
 
-var fade_tween : Tween
-var fade_duration : float = 0.6 # seconds
-var pause_duration : float = 3.0 # seconds
-var skipped : bool = false
+@export var fade_duration : float = 0.6 # seconds
+@export var pause_duration : float = 3.0 # seconds
 
 enum DISPLAY_STATES{
 	FADE_IN,
@@ -16,6 +14,8 @@ enum DISPLAY_STATES{
 	FADE_OUT,
 }
 var state = -1 : set = set_state
+var fade_tween : Tween
+var skipped : bool = false
 
 
 func _ready() -> void:

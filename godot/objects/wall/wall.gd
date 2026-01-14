@@ -17,7 +17,7 @@ func _ready() -> void:
 	visibility_timer.one_shot = true
 	projectile_detection.area_entered.connect(_on_projectile_detection_area_entered)
 	hum_sfx.volume_db = -60
-	hum_sfx.play()
+	#hum_sfx.play() # causes issues in web due to overloading audio engine
 
 func _process(delta: float) -> void:
 	ghost_shake()

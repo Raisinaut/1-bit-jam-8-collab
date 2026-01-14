@@ -3,7 +3,7 @@ extends Area2D
 
 var MAX_SPEED : float = 300
 var MIN_SPEED : float = 150
-var ACCELERATION : float = 20
+var ACCELERATION : float = 40
 var MIN_RECOVERY_TIME : float = 4 # seconds
 var MAX_RECOVERY_TIME : float = 6 # seconds
 

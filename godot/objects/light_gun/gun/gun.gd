@@ -22,7 +22,7 @@ var interval_timer : SceneTreeTimer
 var overheat_timer : SceneTreeTimer
 
 var overheat_amount : float = 0.0 : set = set_overheat_amount
-var overheat_decay : float = 0.5
+var overheat_decay : float = 0.55
 var overheat_per_shot : float = 0.25
 
 
